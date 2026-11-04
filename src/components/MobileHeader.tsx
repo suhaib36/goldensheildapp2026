@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabType } from '../types';
-import { Bell, Calendar, Shield, User, Compass } from 'lucide-react';
+import { Bell, Calendar, Shield } from 'lucide-react';
 import { sound } from '../utils/audio';
 
 interface MobileHeaderProps {
@@ -98,27 +98,29 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   const { title, rightAction } = getHeaderInfo();
 
   return (
-    <header className="shrink-0 bg-white border-b border-slate-200/80 px-4 py-3 flex items-center justify-between z-30 select-none">
-      {/* Left Golden Shield Mini Crest & Title */}
-      <div className="w-8 h-8 flex items-center justify-start">
-        <div className="w-7 h-7 rounded-lg bg-slate-900 flex items-center justify-center shadow-2xs">
-          <Shield className="w-4 h-4 text-amber-400 fill-amber-400/20" />
+    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 w-full select-none shadow-xs">
+      <div className="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+        {/* Left Golden Shield Mini Crest & Title */}
+        <div className="w-8 h-8 flex items-center justify-start">
+          <div className="w-7 h-7 rounded-lg bg-slate-900 flex items-center justify-center shadow-2xs">
+            <Shield className="w-4 h-4 text-amber-400 fill-amber-400/20" />
+          </div>
         </div>
-      </div>
 
-      {/* Center Screen Title matching Stitch designs */}
-      <div className="text-center">
-        <div className="text-[10px] font-black tracking-widest text-slate-900 uppercase">
-          GOLDEN SHIELD
+        {/* Center Screen Title matching Stitch designs */}
+        <div className="text-center">
+          <div className="text-[10px] font-black tracking-widest text-slate-900 uppercase">
+            GOLDEN SHIELD
+          </div>
+          <div className="text-xs font-black tracking-wider text-slate-600 uppercase">
+            {title}
+          </div>
         </div>
-        <div className="text-xs font-black tracking-wider text-slate-600 uppercase">
-          {title}
-        </div>
-      </div>
 
-      {/* Right Action */}
-      <div className="w-8 h-8 flex items-center justify-end">
-        {rightAction}
+        {/* Right Action */}
+        <div className="w-8 h-8 flex items-center justify-end">
+          {rightAction}
+        </div>
       </div>
     </header>
   );
