@@ -27,7 +27,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
   onOpenSOS,
 }) => {
   return (
-    <div className="space-y-4 pb-20 animate-in fade-in duration-200">
+    <div className="space-y-4 pb-4 animate-in fade-in duration-200">
       {/* Officer ID Header Card */}
       <div className="bg-gradient-to-br from-slate-900 via-slate-850 to-slate-950 text-white rounded-3xl p-5 border border-slate-800 shadow-xl relative overflow-hidden">
         <div className="flex items-center space-x-4">

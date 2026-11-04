@@ -52,7 +52,7 @@ export const AssignmentsScreen: React.FC<AssignmentsScreenProps> = ({
   const scheduledRotations = filteredAssignments.filter((a) => a.id !== activeAssignment.id);
 
   return (
-    <div className="space-y-4 pb-20 animate-in fade-in duration-200">
+    <div className="space-y-4 pb-4 animate-in fade-in duration-200">
       {/* Page Title & Search Header */}
       <div className="space-y-3">
         <div>

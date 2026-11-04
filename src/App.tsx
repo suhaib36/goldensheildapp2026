@@ -7,14 +7,13 @@ import {
   initialFieldNotes,
   initialIncidents,
 } from './data/mockData';
-import { Header } from './components/Header';
+import { MobileHeader } from './components/MobileHeader';
 import { BottomNav } from './components/BottomNav';
 import { HomeScreen } from './components/screens/HomeScreen';
 import { AssignmentsScreen } from './components/screens/AssignmentsScreen';
 import { PatrolScreen } from './components/screens/PatrolScreen';
 import { ScheduleScreen } from './components/screens/ScheduleScreen';
 import { ProfileScreen } from './components/screens/ProfileScreen';
-import { StitchCanvasView } from './components/screens/StitchCanvasView';
 import { ScannerModal } from './components/modals/ScannerModal';
 import { AddNoteModal } from './components/modals/AddNoteModal';
 import { IncidentModal } from './components/modals/IncidentModal';
@@ -25,7 +24,6 @@ import { sound } from './utils/audio';
 
 export const App: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<TabType>('home');
-  const [isCanvasView, setIsCanvasView] = useState<boolean>(false);
 
   // Core Dynamic Data State
   const [officer, setOfficer] = useState(initialOfficer);
@@ -129,128 +127,92 @@ export const App: React.FC = () => {
   const pendingCount = checkpoints.filter((c) => c.status === 'pending').length;
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-800 flex flex-col font-sans">
-      {/* Top Header */}
-      <Header
-        currentTab={currentTab}
-        isCanvasView={isCanvasView}
-        setIsCanvasView={setIsCanvasView}
-        onOpenSOS={() => setSosOpen(true)}
-        onResetData={handleResetData}
-      />
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center sm:p-4 select-none">
+      {/* Mobile-Only Device Container */}
+      <div className="w-full max-w-[430px] h-[100dvh] sm:h-[92vh] sm:max-h-[890px] bg-slate-100 sm:rounded-[44px] shadow-2xl overflow-hidden flex flex-col relative sm:border-[8px] sm:border-slate-800">
+        
+        {/* Mobile Header matching Stitch design */}
+        <MobileHeader
+          currentTab={currentTab}
+          onOpenSOS={() => setSosOpen(true)}
+          onNavigateTab={(tab) => setCurrentTab(tab)}
+        />
 
-      {/* Main Content Area */}
-      <main className="flex-1 flex flex-col justify-start items-center">
-        {isCanvasView ? (
-          /* 4-Screen Infinite Stitch Canvas */
-          <StitchCanvasView
-            officer={officer}
-            checkpoints={checkpoints}
-            assignments={assignments}
-            fieldNotes={fieldNotes}
-            onOpenScanner={(cp) => {
-              setSelectedScanCheckpoint(cp);
-              setScannerOpen(true);
-            }}
-            onOpenSOS={() => setSosOpen(true)}
-            onOpenAddNote={() => {
-              setAddNoteMode('note');
-              setAddNoteOpen(true);
-            }}
-            onOpenUploadPhoto={() => {
-              setAddNoteMode('photo');
-              setAddNoteOpen(true);
-            }}
-            onOpenSubmitReport={() => setReportOpen(true)}
-            onOpenTradeModal={() => setTradeOpen(true)}
-            onViewBriefing={(asg) => {
-              setSelectedBriefing(asg);
-              setBriefingOpen(true);
-            }}
-            onFocusScreen={(tab) => {
-              setCurrentTab(tab);
-              setIsCanvasView(false);
-            }}
-          />
-        ) : (
-          /* Single Mobile Device View Container */
-          <div className="w-full max-w-md mx-auto p-4 sm:p-5 flex-1">
-            {currentTab === 'home' && (
-              <HomeScreen
-                officer={officer}
-                checkpoints={checkpoints}
-                onNavigateToTab={(tab) => setCurrentTab(tab)}
-                onOpenScanner={(cp) => {
-                  setSelectedScanCheckpoint(cp);
-                  setScannerOpen(true);
-                }}
-                onOpenSOS={() => setSosOpen(true)}
-                onOpenAddNote={() => {
-                  setAddNoteMode('note');
-                  setAddNoteOpen(true);
-                }}
-              />
-            )}
+        {/* Scrollable Screen Content */}
+        <main className="flex-1 overflow-y-auto px-4 py-3 bg-slate-100">
+          {currentTab === 'home' && (
+            <HomeScreen
+              officer={officer}
+              checkpoints={checkpoints}
+              onNavigateToTab={(tab) => setCurrentTab(tab)}
+              onOpenScanner={(cp) => {
+                setSelectedScanCheckpoint(cp);
+                setScannerOpen(true);
+              }}
+              onOpenSOS={() => setSosOpen(true)}
+              onOpenAddNote={() => {
+                setAddNoteMode('note');
+                setAddNoteOpen(true);
+              }}
+            />
+          )}
 
-            {currentTab === 'assignments' && (
-              <AssignmentsScreen
-                assignments={assignments}
-                onNavigateToTab={(tab) => setCurrentTab(tab)}
-                onOpenTradeModal={() => setTradeOpen(true)}
-                onViewBriefing={(asg) => {
-                  setSelectedBriefing(asg);
-                  setBriefingOpen(true);
-                }}
-              />
-            )}
+          {currentTab === 'assignments' && (
+            <AssignmentsScreen
+              assignments={assignments}
+              onNavigateToTab={(tab) => setCurrentTab(tab)}
+              onOpenTradeModal={() => setTradeOpen(true)}
+              onViewBriefing={(asg) => {
+                setSelectedBriefing(asg);
+                setBriefingOpen(true);
+              }}
+            />
+          )}
 
-            {currentTab === 'patrol' && (
-              <PatrolScreen
-                checkpoints={checkpoints}
-                fieldNotes={fieldNotes}
-                onOpenScanner={(cp) => {
-                  setSelectedScanCheckpoint(cp);
-                  setScannerOpen(true);
-                }}
-                onOpenAddNote={() => {
-                  setAddNoteMode('note');
-                  setAddNoteOpen(true);
-                }}
-                onOpenUploadPhoto={() => {
-                  setAddNoteMode('photo');
-                  setAddNoteOpen(true);
-                }}
-                onOpenSubmitReport={() => setReportOpen(true)}
-              />
-            )}
+          {currentTab === 'patrol' && (
+            <PatrolScreen
+              checkpoints={checkpoints}
+              fieldNotes={fieldNotes}
+              onOpenScanner={(cp) => {
+                setSelectedScanCheckpoint(cp);
+                setScannerOpen(true);
+              }}
+              onOpenAddNote={() => {
+                setAddNoteMode('note');
+                setAddNoteOpen(true);
+              }}
+              onOpenUploadPhoto={() => {
+                setAddNoteMode('photo');
+                setAddNoteOpen(true);
+              }}
+              onOpenSubmitReport={() => setReportOpen(true)}
+            />
+          )}
 
-            {currentTab === 'schedule' && (
-              <ScheduleScreen
-                officer={officer}
-                onNavigateToTab={(tab) => setCurrentTab(tab)}
-                onOpenTradeModal={() => setTradeOpen(true)}
-              />
-            )}
+          {currentTab === 'schedule' && (
+            <ScheduleScreen
+              officer={officer}
+              onNavigateToTab={(tab) => setCurrentTab(tab)}
+              onOpenTradeModal={() => setTradeOpen(true)}
+            />
+          )}
 
-            {currentTab === 'profile' && (
-              <ProfileScreen
-                officer={officer}
-                onResetData={handleResetData}
-                onOpenSOS={() => setSosOpen(true)}
-              />
-            )}
-          </div>
-        )}
-      </main>
+          {currentTab === 'profile' && (
+            <ProfileScreen
+              officer={officer}
+              onResetData={handleResetData}
+              onOpenSOS={() => setSosOpen(true)}
+            />
+          )}
+        </main>
 
-      {/* Floating Bottom Nav for Single Device View */}
-      {!isCanvasView && (
+        {/* Attached Bottom Navigation Bar */}
         <BottomNav
           currentTab={currentTab}
           onSelectTab={(tab) => setCurrentTab(tab)}
           pendingCheckpointsCount={pendingCount}
         />
-      )}
+      </div>
 
       {/* Modals & Dialogs */}
       <ScannerModal

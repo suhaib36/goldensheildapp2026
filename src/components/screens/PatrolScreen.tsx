@@ -59,7 +59,7 @@ export const PatrolScreen: React.FC<PatrolScreenProps> = ({
   const pendingCheckpoint = checkpoints.find((c) => c.status === 'pending') || checkpoints[0];
 
   return (
-    <div className="space-y-4 pb-20 animate-in fade-in duration-200">
+    <div className="space-y-4 pb-4 animate-in fade-in duration-200">
       {/* Active Patrol Dispatch Header Bar */}
       <div className="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-2">
         <div className="flex items-center justify-between">

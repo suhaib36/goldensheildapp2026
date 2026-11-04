@@ -74,7 +74,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   };
 
   return (
-    <div className="space-y-4 pb-20 animate-in fade-in duration-200">
+    <div className="space-y-4 pb-4 animate-in fade-in duration-200">
       {/* Officer Greeting Bar */}
       <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex items-center justify-between">
         <div>

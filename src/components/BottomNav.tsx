@@ -23,8 +23,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-lg px-2 py-1 max-w-md mx-auto sm:rounded-t-2xl">
-      <div className="flex items-center justify-around">
+    <nav className="shrink-0 bg-white border-t border-slate-200 shadow-md px-2 py-2 w-full z-30 select-none">
+      <div className="flex items-center justify-around max-w-md mx-auto">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = currentTab === tab.id;
@@ -36,7 +36,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
                 sound.playClick();
                 onSelectTab(tab.id);
               }}
-              className={`relative flex flex-col items-center justify-center py-1.5 px-3 rounded-xl transition-all duration-150 ${
+              className={`flex-1 flex flex-col items-center justify-center py-1 transition-all ${
                 isActive
                   ? 'text-slate-900 font-bold scale-105'
                   : 'text-slate-400 hover:text-slate-600 font-medium'
@@ -45,7 +45,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               <div className="relative">
                 <Icon
                   className={`w-5 h-5 transition-transform ${
-                    isActive ? 'text-slate-900 stroke-[2.5]' : 'stroke-[1.75]'
+                    isActive ? 'text-slate-900 stroke-[2.5]' : 'stroke-[1.8]'
                   }`}
                 />
                 {/* Active Indicator dot */}

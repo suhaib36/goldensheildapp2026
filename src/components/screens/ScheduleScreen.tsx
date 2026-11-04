@@ -58,7 +58,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({
   };
 
   return (
-    <div className="space-y-4 pb-20 animate-in fade-in duration-200">
+    <div className="space-y-4 pb-4 animate-in fade-in duration-200">
       {/* Page Title & Month Picker */}
       <div className="space-y-1">
         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-mono">
